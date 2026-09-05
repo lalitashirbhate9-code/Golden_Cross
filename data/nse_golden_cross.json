@@ -1,7 +1,44 @@
 {
-  "generatedAt": null,
-  "source": "Sample fallback until the first scheduled update",
+  "generatedAt": "2026-09-05T17:33:54.814449Z",
+  "source": "Yahoo Finance chart API (public endpoint)",
   "screen": "50D MA >= 200D MA and price >= 50D MA",
   "warnings": [],
-  "stocks": []
+  "stocks": [
+    {
+      "name": "N R Agarwal Inds",
+      "symbol": "NRAIL",
+      "sector": "Paper & Packaging",
+      "pe": 15.05,
+      "roce": 8.49,
+      "marketCap": 993.92,
+      "catalyst": "Profit growth +111% \u00b7 paper demand",
+      "price": 584.0,
+      "ma50": 477.1,
+      "ma200": 461.36,
+      "change": 17.73,
+      "volume": 0,
+      "average": 0,
+      "crossed": "trend intact",
+      "qualified": true,
+      "asOf": "2026-09-04"
+    },
+    {
+      "name": "Nitiraj Engineer",
+      "symbol": "NITIRAJ",
+      "sector": "Engineering",
+      "pe": 93.62,
+      "roce": 1.79,
+      "marketCap": 224.69,
+      "catalyst": "Profit growth +419% \u00b7 order momentum",
+      "price": 219.19,
+      "ma50": 204.12,
+      "ma200": 197.83,
+      "change": 6.85,
+      "volume": 0,
+      "average": 0,
+      "crossed": "trend intact",
+      "qualified": true,
+      "asOf": "2026-09-04"
+    }
+  ]
 }
