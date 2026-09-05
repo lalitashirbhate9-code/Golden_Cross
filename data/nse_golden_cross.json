@@ -1,44 +1,62 @@
 {
-  "generatedAt": "2026-09-05T17:33:54.814449Z",
+  "generatedAt": "2026-09-05T17:45:14.905158Z",
   "source": "Yahoo Finance chart API (public endpoint)",
   "screen": "50D MA >= 200D MA and price >= 50D MA",
   "warnings": [],
+  "baselines": {
+    "NRAIL": {
+      "firstPrice": 584.0,
+      "discoveredDate": "2026-09-04"
+    },
+    "NITIRAJ": {
+      "firstPrice": 219.19,
+      "discoveredDate": "2026-09-04"
+    }
+  },
   "stocks": [
     {
       "name": "N R Agarwal Inds",
       "symbol": "NRAIL",
-      "sector": "Paper & Packaging",
-      "pe": 15.05,
-      "roce": 8.49,
-      "marketCap": 993.92,
-      "catalyst": "Profit growth +111% \u00b7 paper demand",
+      "lastPrice": 584.0,
       "price": 584.0,
       "ma50": 477.1,
       "ma200": 461.36,
       "change": 17.73,
-      "volume": 0,
-      "average": 0,
+      "pe": 15.05,
+      "roce": 8.49,
+      "marketCap": 993.92,
+      "volume": 165937.0,
+      "average": 19558.0,
+      "sector": "Unclassified",
+      "catalyst": "50D MA is above 200D MA",
       "crossed": "trend intact",
       "qualified": true,
-      "asOf": "2026-09-04"
+      "asOf": "2026-09-04",
+      "firstPrice": 584.0,
+      "discoveredDate": "2026-09-04",
+      "percentChange": 0.0
     },
     {
       "name": "Nitiraj Engineer",
       "symbol": "NITIRAJ",
-      "sector": "Engineering",
-      "pe": 93.62,
-      "roce": 1.79,
-      "marketCap": 224.69,
-      "catalyst": "Profit growth +419% \u00b7 order momentum",
+      "lastPrice": 219.19,
       "price": 219.19,
       "ma50": 204.12,
       "ma200": 197.83,
       "change": 6.85,
-      "volume": 0,
-      "average": 0,
+      "pe": 93.62,
+      "roce": 1.79,
+      "marketCap": 224.69,
+      "volume": 38842.0,
+      "average": 4359.0,
+      "sector": "Unclassified",
+      "catalyst": "50D MA is above 200D MA",
       "crossed": "trend intact",
       "qualified": true,
-      "asOf": "2026-09-04"
+      "asOf": "2026-09-04",
+      "firstPrice": 219.19,
+      "discoveredDate": "2026-09-04",
+      "percentChange": 0.0
     }
   ]
 }
