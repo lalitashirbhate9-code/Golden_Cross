@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NSE golden-cross stock screening dashboard">
+  <title>Golden Cross / NSE scanner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">GC</span><span>NSE / SIGNAL LAB</span></div>
+      <div class="top-actions"><span class="market-pill"><i></i> NSE session open</span><button id="refreshButton" class="button" type="button">Refresh scan <span>↻</span></button></div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">TECHNICAL SCREEN · 05 SEP 2026</p>
+        <h1>Find the <em>crossing.</em><br>Follow the trend.</h1>
+        <p class="subtitle">A focused shortlist of NSE stocks where the 50-day moving average is moving through the 200-day average.</p>
+      </div>
+      <div class="hero-note"><span>SCANNER RULE</span><strong>50D MA ≥ 200D MA</strong><small>Price above both averages · ranked by trend quality</small></div>
+    </section>
+
+    <section class="stats-grid" aria-label="Scan summary">
+      <article class="stat"><span>QUALIFIED</span><strong id="signalCount">—</strong><small>stocks in this scan</small></article>
+      <article class="stat"><span>AVG. UPSIDE</span><strong id="averageDistance">—</strong><small>price vs 200D MA</small></article>
+      <article class="stat"><span>FRESH CROSSES</span><strong id="freshCount">—</strong><small>within the last 30 days</small></article>
+      <article class="stat"><span>TOP RANK</span><strong id="topRank">—</strong><small>highest trend score</small></article>
+    </section>
+
+    <section class="workspace">
+      <div class="section-heading"><div><p class="eyebrow">THE WATCHLIST</p><h2>Golden-cross candidates <span id="resultLabel"></span></h2></div><span class="data-badge"><i></i><span id="dataStatus">Sample data</span></span></div>
+      <div class="toolbar">
+        <label class="search"><span>Search stocks</span><input id="searchInput" type="search" placeholder="Search name or NSE ticker" autocomplete="off"></label>
+        <label><span>Sector</span><select id="sectorFilter"><option value="ALL">All sectors</option></select></label>
+        <label><span>View</span><select id="sortSelect"><option value="rank">Best ranked</option><option value="distance">Distance to 200D MA</option><option value="change">1D change</option><option value="name">Name</option></select></label>
+        <label class="file-picker"><span>Import Screener CSV</span><input id="screenerFile" type="file" accept=".csv,text/csv"></label>
+      </div>
+      <div id="refreshStatus" class="message" role="status" aria-live="polite"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rank / stock</th><th>Last price</th><th>50D MA</th><th>200D MA</th><th>Trend distance</th><th>Fundamentals</th><th>Volume pulse</th><th>Catalyst</th><th>Signal</th></tr></thead>
+          <tbody id="stockRows"></tbody>
+        </table>
+        <div id="emptyState" class="empty" hidden><strong>No matches</strong><span>Try a different search or sector.</span></div>
+      </div>
+    </section>
+    <footer><span>Source: user-imported Screener export or labelled sample data.</span><span>Informational only · not investment advice.</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
