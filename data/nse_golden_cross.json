@@ -1,0 +1,7 @@
+{
+  "generatedAt": null,
+  "source": "Sample fallback until the first scheduled update",
+  "screen": "50D MA >= 200D MA and price >= 50D MA",
+  "warnings": [],
+  "stocks": []
+}
