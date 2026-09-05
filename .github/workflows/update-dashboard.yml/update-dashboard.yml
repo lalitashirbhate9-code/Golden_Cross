@@ -1,0 +1,32 @@
+name: Update NSE golden-cross data
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Fetch public market data and calculate moving averages
+        run: python scripts/update_dashboard.py
+      - name: Commit changed dashboard data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@github.com"
+          git add data/nse_golden_cross.json
+          git diff --cached --quiet || git commit -m "chore: update NSE golden-cross data"
+          git push
