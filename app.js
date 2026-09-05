@@ -4,6 +4,7 @@ const sampleStocks = [
   {name:'Nitiraj Engineer',symbol:'NITIRAJ',price:219.19,ma50:207.6,ma200:191.2,change:-0.64,pe:93.62,roce:1.79,marketCap:224.69,volume:38842,average:4359,catalyst:'Profit growth +419% · order momentum',sector:'Engineering',crossed:'8 days ago'}
 ];
 let stocks = structuredClone(sampleStocks);
+let loadedGeneratedData = false;
 const $ = selector => document.querySelector(selector);
 const money = value => '₹' + Number(value).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 const compact = value => value >= 1000 ? '₹' + (value/1000).toFixed(1) + 'k Cr' : '₹' + value.toFixed(0) + ' Cr';
@@ -39,9 +40,11 @@ function render(){
   $('#signalCount').textContent=stocks.length; $('#averageDistance').textContent=stocks.length?(stocks.reduce((a,s)=>a+(s.price/s.ma200-1)*100,0)/stocks.length).toFixed(1)+'%':'—'; $('#freshCount').textContent=stocks.filter(s=>s.crossed.includes('days')&&parseInt(s.crossed)<30).length; $('#topRank').textContent=stocks.length?'#1':'—';
 }
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function refresh(){const button=$('#refreshButton');button.disabled=true;button.innerHTML='Scanning…';setTimeout(()=>{stocks=stocks.map(s=>({...s,price:+(s.price*(1+(Math.random()-.48)/100)).toFixed(2)}));$('#dataStatus').textContent='Sample data · refreshed';$('#refreshStatus').textContent='Scan refreshed just now';render();button.disabled=false;button.innerHTML='Refresh scan <span>↻</span>'},350)}
+async function refresh(){const button=$('#refreshButton');button.disabled=true;button.innerHTML='Loading…';try{await loadGeneratedData(true);$('#refreshStatus').textContent='Latest generated scan loaded';}catch(error){$('#refreshStatus').textContent='Live data unavailable; showing current data.';}finally{button.disabled=false;button.innerHTML='Refresh scan <span>↻</span>';render();}}
+async function loadGeneratedData(force=false){const response=await fetch('data/nse_golden_cross.json'+(force?'?t='+Date.now():''));if(!response.ok)throw new Error('Generated data unavailable');const payload=await response.json();if(!Array.isArray(payload.stocks)||(!payload.stocks.length&&!payload.generatedAt))throw new Error('Generated data is empty');stocks=payload.stocks.map(s=>({...s,crossed:s.crossed||'trend intact'}));loadedGeneratedData=true;$('#dataStatus').textContent='Automated data · '+new Date(payload.generatedAt).toLocaleDateString('en-IN');setSectors();render();if(payload.warnings&&payload.warnings.length)$('#refreshStatus').textContent='Partial update: '+payload.warnings.length+' symbol(s) unavailable';}
 ['searchInput','sectorFilter','sortSelect'].forEach(id=>$('#'+id).addEventListener('input',render));
 $('#refreshButton').addEventListener('click',refresh);
 $('#screenerFile').addEventListener('change',event=>{const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{stocks=parseCsv(reader.result);$('#dataStatus').textContent='Imported CSV';$('#refreshStatus').textContent=stocks.length+' qualifying rows loaded';setSectors();render()}catch(error){$('#refreshStatus').textContent='Import error: '+error.message}};reader.readAsText(file)});
 function setSectors(){const select=$('#sectorFilter'), current=select.value;select.innerHTML='<option value="ALL">All sectors</option>'+[...new Set(stocks.map(s=>s.sector))].sort().map(s=>`<option>${escapeHtml(s)}</option>`).join('');if([...select.options].some(o=>o.value===current))select.value=current}
 setSectors();render();
+loadGeneratedData().catch(()=>{$('#dataStatus').textContent='Sample data · generated feed unavailable';$('#refreshStatus').textContent='Using clearly labelled sample data. Import a Screener CSV or retry later.';});
