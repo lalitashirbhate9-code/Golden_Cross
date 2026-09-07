@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T07:15:20.439074Z",
+  "generatedAt": "2026-09-07T07:29:03.491870Z",
   "source": "Yahoo Finance chart API (public endpoint)",
   "screen": "50D MA >= 200D MA and price >= 50D MA",
   "warnings": [],
@@ -17,11 +17,11 @@
     {
       "name": "N R Agarwal Inds",
       "symbol": "NRAIL",
-      "lastPrice": 584.0,
-      "price": 584.0,
-      "ma50": 477.1,
-      "ma200": 461.36,
-      "change": 17.73,
+      "lastPrice": 616.95,
+      "price": 616.95,
+      "ma50": 480.77,
+      "ma200": 461.99,
+      "change": 5.64,
       "pe": 15.05,
       "roce": 8.49,
       "marketCap": 993.92,
@@ -31,19 +31,19 @@
       "catalyst": "50D MA is above 200D MA",
       "crossed": "trend intact",
       "qualified": true,
-      "asOf": "2026-09-04",
+      "asOf": "2026-09-07",
       "firstPrice": 584.0,
       "discoveredDate": "2026-09-04",
-      "percentChange": 0.0
+      "percentChange": 5.64
     },
     {
       "name": "Nitiraj Engineer",
       "symbol": "NITIRAJ",
-      "lastPrice": 219.19,
-      "price": 219.19,
-      "ma50": 204.12,
-      "ma200": 197.83,
-      "change": 6.85,
+      "lastPrice": 215.7,
+      "price": 215.7,
+      "ma50": 204.74,
+      "ma200": 197.9,
+      "change": -1.59,
       "pe": 93.62,
       "roce": 1.79,
       "marketCap": 224.69,
@@ -53,10 +53,10 @@
       "catalyst": "50D MA is above 200D MA",
       "crossed": "trend intact",
       "qualified": true,
-      "asOf": "2026-09-04",
+      "asOf": "2026-09-07",
       "firstPrice": 219.19,
       "discoveredDate": "2026-09-04",
-      "percentChange": 0.0
+      "percentChange": -1.59
     }
   ]
 }
