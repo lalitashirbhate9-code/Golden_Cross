@@ -30,3 +30,190 @@ jobs:
           git add data/nse_golden_cross.json
           git diff --cached --quiet || git commit -m "chore: update NSE golden-cross data"
           git push
+      - name: Prepare email report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("data/nse_golden_cross.json").read_text(encoding="utf-8"))
+          stocks = data.get("stocks", [])
+          lines = [
+              "The Golden Cross project completed its daily run successfully.",
+              "",
+              f"Market data date: {stocks[0].get('asOf', 'unavailable') if stocks else 'unavailable'}",
+              "Dashboard: https://lalitashirbhate9-code.github.io/Golden_Cross/",
+              "",
+              "Discovered qualifying stocks:",
+          ]
+          if stocks:
+              for stock in stocks:
+                  lines.append(f"- {stock.get('symbol')} ({stock.get('name')}): latest price INR {stock.get('lastPrice')}, change since discovery {stock.get('percentChange')}%, discovered {stock.get('discoveredDate')}")
+          else:
+              lines.append("- None found in this run.")
+          Path("daily-report.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+      - name: Email daily run report
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: Golden Cross project run - discovered stocks
+          to: lalitashirbhate9@gmail.com
+          from: Golden Cross Dashboard <${{ secrets.SMTP_USERNAME }}>
+          body: file://daily-report.txt
+name: Update NSE golden-cross data
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Fetch public market data and calculate moving averages
+        run: python scripts/update_dashboard.py
+      - name: Commit changed dashboard data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@github.com"
+          git add data/nse_golden_cross.json
+          git diff --cached --quiet || git commit -m "chore: update NSE golden-cross data"
+          git push
+      - name: Prepare email report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("data/nse_golden_cross.json").read_text(encoding="utf-8"))
+          stocks = data.get("stocks", [])
+          lines = ["The Golden Cross project completed its daily run successfully.", "", f"Market data date: {stocks[0].get('asOf', 'unavailable') if stocks else 'unavailable'}", "Dashboard: https://lalitashirbhate9-code.github.io/Golden_Cross/", "", "Discovered qualifying stocks:"]
+          if stocks:
+              for stock in stocks:
+                  lines.append(f"- {stock.get('symbol')} ({stock.get('name')}): latest price INR {stock.get('lastPrice')}, change since discovery {stock.get('percentChange')}%, discovered {stock.get('discoveredDate')}")
+          else:
+              lines.append("- None found in this run.")
+          Path("daily-report.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+      - name: Email daily run report
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: Golden Cross project run - discovered stocks
+          to: lalitashirbhate9@gmail.com
+          from: Golden Cross Dashboard <${{ secrets.SMTP_USERNAME }}>
+          body: file://daily-report.txtname: Update NSE golden-cross data
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Fetch public market data and calculate moving averages
+        run: python scripts/update_dashboard.py
+      - name: Commit changed dashboard data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@github.com"
+          git add data/nse_golden_cross.json
+          git diff --cached --quiet || git commit -m "chore: update NSE golden-cross data"
+          git push
+      - name: Prepare email report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("data/nse_golden_cross.json").read_text(encoding="utf-8"))
+          stocks = data.get("stocks", [])
+          lines = ["The Golden Cross project completed its daily run successfully.", "", f"Market data date: {stocks[0].get('asOf', 'unavailable') if stocks else 'unavailable'}", "Dashboard: https://lalitashirbhate9-code.github.io/Golden_Cross/", "", "Discovered qualifying stocks:"]
+          if stocks:
+              for stock in stocks:
+                  lines.append(f"- {stock.get('symbol')} ({stock.get('name')}): latest price INR {stock.get('lastPrice')}, change since discovery {stock.get('percentChange')}%, discovered {stock.get('discoveredDate')}")
+          else:
+              lines.append("- None found in this run.")
+          Path("daily-report.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+      - name: Email daily run report
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: Golden Cross project run - discovered stocks
+          to: lalitashirbhate9@gmail.com
+          from: Golden Cross Dashboard <${{ secrets.SMTP_USERNAME }}>
+          body: file://daily-report.txt
+name: Update NSE golden-cross data
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Fetch public market data and calculate moving averages
+        run: python scripts/update_dashboard.py
+      - name: Commit changed dashboard data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@github.com"
+          git add data/nse_golden_cross.json
+          git diff --cached --quiet || git commit -m "chore: update NSE golden-cross data"
+          git push
