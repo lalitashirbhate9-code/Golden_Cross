@@ -1,0 +1,23 @@
+{
+  "screen": {
+    "minMarketCapCrore": 100,
+    "volumeRatioMin": 1.5,
+    "staleAfterHours": 36
+  },
+  "indicators": {
+    "smaFast": 50,
+    "smaSlow": 200,
+    "volumeAverageDays": 20,
+    "rsiPeriod": 14,
+    "macdFast": 12,
+    "macdSlow": 26,
+    "macdSignal": 9
+  },
+  "ranking": {
+    "strongMinimum": 80,
+    "moderateMinimum": 60
+  },
+  "history": {
+    "maxRuns": 365
+  }
+}
